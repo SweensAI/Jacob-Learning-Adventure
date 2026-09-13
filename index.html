@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Jacob's Learning Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #1c2129; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    margin: 0; padding: 0; min-height: 100%;
+    background: #f2f3f6;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px 50px; }
+
+  header.hero { margin-bottom: 20px; }
+  .hero .eyebrow {
+    font-size: 12.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    color: #8891a3; margin: 0 0 4px;
+  }
+  .hero h1 {
+    font-family: 'Poppins', sans-serif; font-weight: 800;
+    font-size: clamp(24px, 6.5vw, 34px); margin: 0 0 6px; color: var(--ink);
+  }
+  .hero .sub { font-size: 14.5px; font-weight: 500; color: #5c6270; margin: 0; }
+  .hero .stars { font-size: 13px; font-weight: 700; color: #b8860b; margin-top: 8px; }
+
+  /* HOME SCREEN */
+  #screen-home { display: block; }
+  .home-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;
+  }
+  .tile {
+    position: relative;
+    border: none; border-radius: 12px; padding: 18px 14px 16px;
+    color: #fff; text-align: left; cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    min-height: 108px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .tile:active { transform: translateY(2px); box-shadow: 0 1px 2px rgba(0,0,0,0.15); }
+  .tile .tile-name { font-size: 16px; font-weight: 700; line-height: 1.2; }
+  .tile .tile-sub { font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 500; opacity: 0.85; margin-top: 4px; }
+  .tile .tile-badge {
+    position: absolute; top: 10px; right: 10px;
+    background: rgba(255,255,255,0.22); border-radius: 999px;
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+    padding: 3px 8px;
+  }
+  .tile .tile-tag {
+    display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; background: rgba(255,255,255,0.25); border-radius: 4px;
+    padding: 2px 6px; margin-bottom: 6px; width: fit-content;
+  }
+
+  .surprise-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; border: none; border-radius: 10px; padding: 13px;
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 15px; color: #fff;
+    background: #33383f;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    cursor: pointer; margin-bottom: 4px;
+    transition: transform 0.1s ease;
+  }
+  .surprise-btn:active { transform: translateY(2px); }
+
+  .clear-btn {
+    display: block; margin: 12px auto 0; background: none; border: none;
+    font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12.5px;
+    color: #9aa0ad; text-decoration: underline; cursor: pointer; padding: 6px;
+  }
+  .clear-btn:active { color: #6b7280; }
+
+  /* SUBJECT SCREEN */
+  #screen-subject { display: none; }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #ffffff; border: 1px solid #dde1e8; border-radius: 8px;
+    font-family: 'Inter', sans-serif; font-weight: 600; font-size: 13.5px; color: var(--ink);
+    padding: 8px 14px; margin-bottom: 14px; cursor: pointer;
+  }
+  .back-btn:active { transform: scale(0.97); }
+
+  .panel-head {
+    color: #fff; border-radius: 10px; padding: 14px 18px; margin-bottom: 16px;
+  }
+  .panel-head h2 { font-family: 'Poppins', sans-serif; margin: 0; font-size: 20px; font-weight: 700; }
+  .panel-head p { margin: 3px 0 0; font-size: 13px; font-weight: 500; opacity: 0.9; }
+
+  .site-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+
+  .site-card {
+    position: relative;
+    display: flex; align-items: center; gap: 12px;
+    background: #ffffff; border: 1px solid #e4e7ec; border-left: 4px solid var(--card-color, #ccc);
+    border-radius: 8px; padding: 13px 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+
+  .site-card .badge {
+    flex: 0 0 auto; width: 6px; align-self: stretch; border-radius: 3px;
+  }
+  .site-card .text { flex: 1 1 auto; min-width: 0; }
+  .site-link {
+    display: flex; align-items: center; gap: 12px; flex: 1 1 auto; min-width: 0;
+    text-decoration: none; color: inherit;
+  }
+  .site-card .name {
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 15px; margin: 0;
+    display: block; color: var(--card-color, var(--ink));
+  }
+  .site-card .desc { margin: 0; display: block; font-size: 12px; font-weight: 500; color: #6b7280; }
+  .go-link { flex: 0 0 auto; font-size: 18px; color: var(--card-color, #ccc); text-decoration: none; }
+
+  .visited-tag {
+    position: absolute; top: -8px; right: 10px; font-size: 10.5px; font-weight: 700;
+    background: #fbf3d9; color: #8a6400; border: 1px solid #d9b84a; border-radius: 999px;
+    padding: 1px 7px;
+  }
+
+  .note-card {
+    background: #f5f5f5; border: 1px dashed #b8b8b8; border-radius: 8px;
+    padding: 14px 16px; font-weight: 500; font-size: 13.5px; color: #555; text-align: left;
+  }
+
+  footer { text-align: center; margin-top: 26px; font-size: 12px; font-weight: 500; color: #9aa0ad; }
+
+  @media (min-width: 460px) {
+    .home-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (min-width: 520px) {
+    .site-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">Year 5 · Our Lady of Lourdes</p>
+    <h1>Jacob's Learning Hub</h1>
+    <p class="sub" id="greeting">Pick a subject to find useful sites.</p>
+    <p class="stars" id="starCount"></p>
+  </header>
+
+  <!-- HOME SCREEN -->
+  <div id="screen-home">
+    <div class="home-grid" id="homeGrid"></div>
+    <button class="surprise-btn" id="surpriseBtn">🎲 Surprise me</button>
+    <button class="clear-btn" id="clearBtn">↺ Clear my stars</button>
+  </div>
+
+  <!-- SUBJECT SCREEN -->
+  <div id="screen-subject">
+    <button class="back-btn" id="backBtn">‹ All subjects</button>
+    <div class="panel-head" id="panelHead">
+      <h2 id="panelName"></h2><p id="panelBlurb"></p>
+    </div>
+    <div class="site-grid" id="siteGrid"></div>
+    <div class="note-card" id="panelNote" style="display:none; margin-top:12px;"></div>
+  </div>
+
+  <footer>Ask a grown-up before you go online</footer>
+</div>
+
+<script>
+  const SUBJECTS = [
+    { id: 'english', name: 'English', tileName: 'English', color: '#1d5c8a', blurb: 'Reading, writing and SPaG',
+      sites: [
+        { name: 'BBC Bitesize', url: 'https://www.bbc.co.uk/bitesize/learn', desc: 'Year 5/6 English videos and quizzes' },
+        { name: 'Spellingframe (Year 5 & 6)', url: 'https://spellingframe.co.uk/spelling-rule/5/Year-5-and-6', desc: "The school's own spelling rules practice" },
+        { name: 'Oxford Owl for Home', url: 'https://home.oxfordowl.co.uk/', desc: 'Free eBook library' },
+        { name: 'Pobble 365', url: 'https://www.pobble365.com/', desc: 'Daily picture writing prompts' }
+      ]
+    },
+    { id: 'maths', name: 'Maths', tileName: 'Maths', color: '#6a3f8f', blurb: 'Number, fractions, geometry and more',
+      sites: [
+        { name: 'Times Tables Rock Stars', url: 'https://ttrockstars.com/', desc: "The school's recommended tool" },
+        { name: 'BBC Bitesize', url: 'https://www.bbc.co.uk/bitesize/learn', desc: 'Year 5/6 maths videos and revision' },
+        { name: 'White Rose Maths', url: 'https://whiterosemaths.com/homelearning/', desc: 'Home learning videos matched to school teaching' },
+        { name: 'NRICH', url: 'https://nrich.maths.org/', desc: 'Problem-solving challenges' },
+        { name: 'Mathsframe', url: 'https://www.mathsframe.co.uk/', desc: 'Fractions, factors, angles games' }
+      ]
+    },
+    { id: 'science', name: 'Science', tileName: 'Science', color: '#1f7a5c', blurb: 'Materials, forces, space, living things',
+      sites: [
+        { name: 'BBC Bitesize', url: 'https://www.bbc.co.uk/bitesize/learn', desc: 'Year 5/6 science videos and quizzes' },
+        { name: 'Science Museum', url: 'https://www.sciencemuseum.org.uk/', desc: "The school's own recommendation" },
+        { name: 'NASA Space Place', url: 'https://spaceplace.nasa.gov/', desc: 'Great for the Earth and Space topic' }
+      ]
+    },
+    { id: 'humanities', name: 'History & Geography', tileName: 'History & Geo', color: '#a1531c', blurb: 'Anglo-Saxons, Vikings, rivers, coasts',
+      sites: [
+        { name: 'BBC Bitesize', url: 'https://www.bbc.co.uk/bitesize/learn', desc: 'Year 5/6 history and geography' },
+        { name: 'British Museum', url: 'https://www.britishmuseum.org/', desc: "The school's own recommendation" },
+        { name: 'National Geographic Kids', url: 'https://www.natgeokids.com/', desc: 'Geography and world culture' }
+      ]
+    },
+    { id: 'computing', name: 'Computing', tileName: 'Computing', color: '#0e6e6e', blurb: 'Block coding, data, online safety',
+      sites: [
+        { name: 'BBC Bitesize', url: 'https://www.bbc.co.uk/bitesize/learn', desc: 'Year 5/6 computing topics' },
+        { name: 'Scratch', url: 'https://scratch.mit.edu/', desc: 'Matches this year\'s Block Coding topic' }
+      ]
+    },
+    { id: 'french', name: 'French', tileName: 'French', color: '#2f5f9c', blurb: 'Things we enjoy, time, weather',
+      sites: [
+        { name: 'BBC Bitesize', url: 'https://www.bbc.co.uk/bitesize/learn', desc: 'Primary French videos and games' }
+      ]
+    },
+    { id: 'eleven', name: '11+ Preparation', tileName: '11+ Prep', color: '#b8860b', blurb: 'Verbal & non-verbal reasoning, exam practice',
+      sites: [
+        { name: 'Bond 11+', url: 'https://bond11plus.co.uk/', desc: 'Free practice papers across all four papers' },
+        { name: 'Eleven Plus Exams', url: 'https://www.elevenplusexams.co.uk/', desc: 'Parent resource hub, regional guidance' },
+        { name: 'Atom Learning', url: 'https://atomlearning.com/', desc: 'Adaptive online 11+ practice (free trial)' },
+        { name: 'GL Assessment', url: 'https://www.gl-assessment.co.uk/', desc: 'Official familiarisation materials' },
+        { name: 'Times Tables Rock Stars', url: 'https://ttrockstars.com/', desc: 'Maths speed matters for the 11+ too' }
+      ]
+    },
+    { id: 'more', name: 'More Subjects', tileName: 'More', color: '#55575c', blurb: 'RE, PE, Music, Art & Design, RHE',
+      sites: [
+        { name: 'BBC Bitesize', url: 'https://www.bbc.co.uk/bitesize/learn', desc: 'Covers lots of other subjects too' },
+        { name: 'CAFOD', url: 'https://cafod.org.uk/', desc: 'For RE — the charity the school links to' }
+      ],
+      note: 'Ask a grown-up if you\'d like to find more websites for PE, Music, Art & Design, or RHE.'
+    }
+  ];
+
+  const STORAGE_KEY = 'jacobLearningVisited';
+  function getVisited() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    catch (e) { return []; }
+  }
+  function markVisited(key) {
+    try {
+      const v = getVisited();
+      if (!v.includes(key)) { v.push(key); localStorage.setItem(STORAGE_KEY, JSON.stringify(v)); }
+    } catch (e) { /* ignore */ }
+    renderStarCount();
+  }
+  function isVisited(key) { return getVisited().includes(key); }
+  function visitKey(subjectId, url) { return subjectId + '::' + url; }
+
+  function allSites() {
+    return SUBJECTS.flatMap(s => s.sites.map(site => ({ ...site, subjectId: s.id, key: visitKey(s.id, site.url) })));
+  }
+
+  function renderStarCount() {
+    const total = allSites().length;
+    const visited = allSites().filter(s => isVisited(s.key)).length;
+    const el = document.getElementById('starCount');
+    el.textContent = visited > 0 ? `${visited} of ${total} sites explored` : '';
+  }
+
+  function setGreeting() {
+    const h = new Date().getHours();
+    let g = 'Pick a subject to find useful sites.';
+    if (h < 12) g = 'Morning — pick a subject to get started.';
+    else if (h < 17) g = 'Pick a subject to find useful sites.';
+    else g = 'Evening session? Pick a subject below.';
+    document.getElementById('greeting').textContent = g;
+  }
+
+  function renderHome() {
+    const grid = document.getElementById('homeGrid');
+    grid.innerHTML = '';
+    SUBJECTS.forEach(s => {
+      const visitedCount = s.sites.filter(site => isVisited(visitKey(s.id, site.url))).length;
+      const tile = document.createElement('button');
+      tile.className = 'tile';
+      tile.style.background = s.color;
+      tile.innerHTML = `
+        ${visitedCount > 0 ? `<span class="tile-badge">${visitedCount}</span>` : ''}
+        ${s.id === 'eleven' ? '<span class="tile-tag">Exam prep</span>' : ''}
+        <span class="tile-name">${s.tileName || s.name}</span>
+        <span class="tile-sub">${s.sites.length} site${s.sites.length > 1 ? 's' : ''}</span>
+      `;
+      tile.addEventListener('click', () => showSubject(s.id));
+      grid.appendChild(tile);
+    });
+  }
+
+  function showSubject(id) {
+    const s = SUBJECTS.find(x => x.id === id);
+    if (!s) return;
+    document.getElementById('screen-home').style.display = 'none';
+    document.getElementById('screen-subject').style.display = 'block';
+
+    const head = document.getElementById('panelHead');
+    head.style.background = s.color;
+    document.getElementById('panelName').textContent = s.name;
+    document.getElementById('panelBlurb').textContent = s.blurb;
+
+    const grid = document.getElementById('siteGrid');
+    grid.innerHTML = '';
+    s.sites.forEach(site => {
+      const key = visitKey(id, site.url);
+      const card = document.createElement('div');
+      card.className = 'site-card';
+      card.style.setProperty('--card-color', s.color);
+      card.innerHTML = `
+        ${isVisited(key) ? '<span class="visited-tag">visited</span>' : ''}
+        <a class="site-link" href="${site.url}" target="_blank" rel="noopener">
+          <span class="text"><span class="name">${site.name}</span><span class="desc">${site.desc}</span></span>
+        </a>
+        <a class="go-link" href="${site.url}" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">›</a>
+      `;
+      card.querySelectorAll('.site-link, .go-link').forEach(a => {
+        a.addEventListener('click', () => {
+          markVisited(key);
+          setTimeout(() => showSubject(id), 150);
+        });
+      });
+      grid.appendChild(card);
+    });
+
+    const noteEl = document.getElementById('panelNote');
+    if (s.note) { noteEl.style.display = 'block'; noteEl.textContent = s.note; }
+    else { noteEl.style.display = 'none'; }
+  }
+
+  function showHome() {
+    document.getElementById('screen-subject').style.display = 'none';
+    document.getElementById('screen-home').style.display = 'block';
+    renderHome();
+  }
+
+  document.getElementById('backBtn').addEventListener('click', showHome);
+
+  document.getElementById('surpriseBtn').addEventListener('click', () => {
+    const sites = allSites();
+    const pick = sites[Math.floor(Math.random() * sites.length)];
+    markVisited(pick.key);
+    const a = document.createElement('a');
+    a.href = pick.url; a.target = '_blank'; a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    renderHome();
+  });
+
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    const ok = window.confirm("Clear all of Jacob's stars? This can't be undone.");
+    if (!ok) return;
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) { /* ignore */ }
+    renderStarCount();
+    renderHome();
+  });
+
+  setGreeting();
+  renderStarCount();
+  renderHome();
+</script>
+
+</body>
+</html>
