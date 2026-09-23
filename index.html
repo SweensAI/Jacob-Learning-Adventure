@@ -97,6 +97,13 @@
   .panel-head p { margin: 3px 0 0; font-size: 13px; font-weight: 500; opacity: 0.9; }
 
   .site-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .section-heading {
+    grid-column: 1 / -1;
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 12.5px;
+    letter-spacing: 0.6px; text-transform: uppercase; color: #8891a3;
+    margin-top: 6px; padding-top: 6px; border-top: 1px solid #e4e7ec;
+  }
+  .section-heading:first-child { border-top: none; margin-top: 0; padding-top: 0; }
 
   .site-card {
     position: relative;
@@ -226,6 +233,20 @@
         { name: 'Times Tables Rock Stars', url: 'https://ttrockstars.com/', desc: 'Maths speed matters for the 11+ too' }
       ]
     },
+    { id: 'atomfree', name: 'Atom Free Resources', tileName: 'Atom Free', color: '#c2780c', blurb: "Free Atom Learning guides & practice papers",
+      sites: [
+        { name: 'Reading Comprehension: What\u2019s Tested', url: 'https://www.atomlearning.com/blog/reading-comprehension-exam-skills', desc: 'What\u2019s tested in English comprehension', section: 'Guides' },
+        { name: '11+ Creative Writing Guide', url: 'https://www.atomlearning.com/blog/11-plus-creative-writing', desc: 'What\u2019s tested in creative writing', section: 'Guides' },
+        { name: '11+ Verbal Reasoning Guide', url: 'https://www.atomlearning.com/blog/11-plus-verbal-reasoning-exam-preparation-guide', desc: 'What\u2019s tested in verbal reasoning', section: 'Guides' },
+        { name: '11+ Non-Verbal Reasoning Guide', url: 'https://www.atomlearning.com/blog/11-plus-non-verbal-reasoning-top-tips-for-success', desc: 'Top tips for non-verbal reasoning', section: 'Guides' },
+        { name: 'English Practice Paper (PDF)', url: 'https://resources.atomlearning.co.uk/hubfs/Refreshed%2011+%20course%20practice%20papers%20-%20rebranded/11+%20English%20paper-1.pdf', desc: 'Free 11+ English practice paper', section: 'Practice Papers' },
+        { name: 'Creative Writing Practice Paper (PDF)', url: 'https://resources.atomlearning.co.uk/hubfs/Refreshed%2011+%20course%20practice%20papers%20-%20rebranded/11+%20Creative%20Writing.pdf', desc: 'Free 11+ creative writing practice paper', section: 'Practice Papers' },
+        { name: 'Verbal Reasoning Practice Paper (PDF)', url: 'https://resources.atomlearning.co.uk/hubfs/Refreshed%2011+%20course%20practice%20papers%20-%20rebranded/11+%20Verbal%20Reasoning%20paper.pdf', desc: 'Free 11+ verbal reasoning practice paper', section: 'Practice Papers' },
+        { name: 'Non-Verbal Reasoning Practice Paper (PDF)', url: 'https://resources.atomlearning.co.uk/hubfs/Refreshed%2011+%20course%20practice%20papers%20-%20rebranded/11+%20Non-Verbal%20Reasoning%20paper.pdf', desc: 'Free 11+ non-verbal reasoning practice paper', section: 'Practice Papers' },
+        { name: 'English Video Lesson', url: 'https://youtu.be/ycWFrhIZRTM', desc: 'Atom\u2019s free English video lesson', section: 'Videos' },
+        { name: 'Verbal Reasoning Video Lesson', url: 'https://youtu.be/Y3CyHKwXYic', desc: 'Atom\u2019s free verbal reasoning video lesson', section: 'Videos' }
+      ]
+    },
     { id: 'dyslexia', name: 'Dyslexia Tools', tileName: 'Dyslexia Tools', color: '#4338ca', blurb: 'Reading support & assistive tools',
       sites: [
         { name: 'Collins — Dyslexia-Friendly Books', url: 'https://collins.co.uk/pages/support-for-dyslexia', desc: 'Dyslexia-friendly reading ranges and editions' },
@@ -313,7 +334,15 @@
 
     const grid = document.getElementById('siteGrid');
     grid.innerHTML = '';
+    let lastSection = null;
     s.sites.forEach(site => {
+      if (site.section && site.section !== lastSection) {
+        const heading = document.createElement('div');
+        heading.className = 'section-heading';
+        heading.textContent = site.section;
+        grid.appendChild(heading);
+        lastSection = site.section;
+      }
       const key = visitKey(id, site.url);
       const card = document.createElement('div');
       card.className = 'site-card';
