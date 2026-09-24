@@ -40,12 +40,13 @@
   .tile {
     position: relative;
     border: none; border-radius: 12px; padding: 18px 14px 16px;
-    color: #fff; text-align: left; cursor: pointer;
+    color: #fff; text-align: left; cursor: pointer; text-decoration: none;
     font-family: 'Poppins', sans-serif;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     min-height: 108px;
     display: flex; flex-direction: column; justify-content: space-between;
+    box-sizing: border-box;
   }
   .tile:active { transform: translateY(2px); box-shadow: 0 1px 2px rgba(0,0,0,0.15); }
   .tile .tile-name { font-size: 16px; font-weight: 700; line-height: 1.2; }
@@ -349,6 +350,16 @@
       tile.addEventListener('click', () => showSubject(s.id));
       grid.appendChild(tile);
     });
+
+    const readingListTile = document.createElement('a');
+    readingListTile.className = 'tile';
+    readingListTile.href = 'year5-reads.html';
+    readingListTile.style.background = '#9d174d';
+    readingListTile.innerHTML = `
+      <span class="tile-name">📚 Reading List</span>
+      <span class="tile-sub">50 Year 5 books</span>
+    `;
+    grid.appendChild(readingListTile);
   }
 
   function showSubject(id) {
