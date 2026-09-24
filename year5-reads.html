@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jacob’s Reading List · Year 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2f4f9; --card:#ffffff; --ink:#16213e; --muted:#5a6480;
+  --marigold:#f2a900; --tomato:#e2553d; --sage:#4f8a64; --line:#d6dbe8;
+  --plum:#7a4f9a; --sky:#2f7fb5;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1528; --card:#18223b; --ink:#eef1f8; --muted:#a3acc4; --line:#2a3552;
+  }
+}
+:root[data-theme="dark"]{--bg:#0e1528; --card:#18223b; --ink:#eef1f8; --muted:#a3acc4; --line:#2a3552;}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:16px;line-height:1.5}
+.wrap{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+h1{font-family:"Poppins",system-ui,sans-serif;font-weight:700;font-size:clamp(2rem,8vw,2.8rem);line-height:1;margin:8px 0 6px;letter-spacing:-.02em}
+.sub{color:var(--muted);margin:0 0 18px;font-size:.95rem}
+/* shelf */
+.shelf{display:flex;gap:2px;align-items:flex-end;height:64px;padding:0 4px;border-bottom:6px solid #8a5a2b;margin-bottom:8px}
+.spine{flex:1;border-radius:2px 2px 0 0;background:var(--line);transition:background .3s,height .3s}
+.spine.read{background:var(--c)}
+.count{font-family:"Poppins",system-ui,sans-serif;font-weight:500;font-size:1rem;margin:0 0 18px}
+.count b{font-weight:800}
+/* controls */
+.controls{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:10px 0;z-index:5}
+input[type=search]{width:100%;font:inherit;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}
+.chip{flex:none;font-family:"Poppins",system-ui,sans-serif;font-weight:500;font-size:.9rem;border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:6px 12px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--marigold);outline-offset:2px}
+/* list */
+ul{list-style:none;padding:0;margin:8px 0 0}
+li{background:var(--card);border-radius:12px;margin-bottom:8px;border-left:8px solid var(--c)}
+details summary{list-style:none;cursor:pointer;padding:12px 14px;display:flex;gap:10px;align-items:center}
+details summary::-webkit-details-marker{display:none}
+.t{flex:1;min-width:0}
+.title{font-family:"Poppins",system-ui,sans-serif;font-weight:600;font-size:1.08rem;line-height:1.2;display:block}
+.by{color:var(--muted);font-size:.88rem}
+.tag{flex:none;font-family:"Poppins",system-ui,sans-serif;font-size:.75rem;font-weight:500;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--ink)}
+.tick{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:.8rem;color:#fff}
+li.isread .tick{background:var(--sage);border-color:var(--sage)}
+li.isread .title{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--sage)}
+.body{padding:0 14px 14px 14px}
+.body p{margin:0 0 12px;max-width:62ch}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.btn{font-family:"Poppins",system-ui,sans-serif;font-weight:500;font-size:.9rem;border-radius:8px;padding:7px 12px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);text-decoration:none;cursor:pointer}
+.btn.primary{background:var(--ink);color:var(--bg)}
+li.head{background:none;border:0;font-family:"Poppins",system-ui,sans-serif;font-weight:700;font-size:1.15rem;margin:20px 0 8px;padding:0}
+.back{display:inline-block;font-family:"Poppins",system-ui,sans-serif;font-weight:600;font-size:.95rem;color:var(--ink);text-decoration:none;padding:8px 14px;border:1.5px solid var(--line);border-radius:999px;background:var(--card);margin-bottom:10px}
+.empty{color:var(--muted);text-align:center;padding:24px}
+footer{color:var(--muted);font-size:.85rem;margin-top:24px}
+footer a{color:inherit}
+@media (prefers-reduced-motion:reduce){.spine{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← Back to Hub</a>
+  <h1>Reading List</h1>
+  <p class="sub">The 50 Year 5 recommended reads for 2026–27. Tap a book to read about it, and tick it off when it's done.</p>
+  <div class="shelf" id="shelf" aria-hidden="true"></div>
+  <p class="count" id="count"></p>
+
+  <div class="controls">
+    <input type="search" id="q" placeholder="Search titles or authors" aria-label="Search titles or authors">
+    <div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
+  </div>
+
+  <ul id="list"></ul>
+  <p class="empty" id="empty" hidden>No books match that. Try another word or filter.</p>
+
+  <footer>Full reviews and the printable checklist: <a href="https://www.booksfortopics.com/booklists/recommended-reads/year-5/">booksfortopics.com/year-5</a></footer>
+</div>
+
+<script>
+const TYPES={
+  "Favourite Stories":"#1f4e9c","Animal Books":"#0f7a5a","Funny Books":"#c98a00",
+  "Classic Books":"#8a5a2b","Shorter Reads":"#127c86","Graphic Novels":"#b3263e",
+  "Relatable Real-life Humour":"#c4561d","Books about History":"#6b6f2a",
+  "Picturebooks":"#b0457a","Poetry & Verse Novels":"#6a3fa0","Non-fiction Books":"#2f6fd1",
+  "Myths & Magical Worlds":"#1d6b4f"
+};
+const B=[
+["The Ministry of Manners","David Solomons & Hazem Asif","Favourite Stories","A comic caper from the author of My Brother Is a Superhero – silly, clever and very readable."],
+["Brightstorm","Vashti Hardy","Favourite Stories","Twins Arthur and Maudie join a sky-ship race to the South Polar to clear their late father's name. Steampunk airships, inventions and adventure."],
+["Impossible Creatures","Katherine Rundell","Favourite Stories","Christopher discovers a hidden archipelago where mythical creatures still live – and they are dying. Epic, beautifully written fantasy; a modern classic."],
+["Crookhaven: The School for Thieves","J. J. Arcanjo","Favourite Stories","Gabriel, a talented pickpocket, is recruited to a secret school that trains thieves – but they only steal to do good. Heists, puzzles and loyal friends."],
+
+["The Lone Husky","Hannah Gold & Levi Pinfold","Animal Books","From the author of The Last Bear – a child forms a bond with a husky in a frozen, wild landscape. Animal adventure with lots of heart, with Levi Pinfold's lovely illustrations."],
+["The Shadow Pony","Olivia Wakeford & David Litchfield","Animal Books","A gentle, atmospheric story about a child and a mysterious pony. Ideal for animal lovers."],
+["Land of the Last Wildcat","Lui Sit & David Dean","Animal Books","A nature adventure about one of Britain's rarest animals, the Scottish wildcat, and a child determined to protect it."],
+
+["The Beast and the Bethany","Jack Meggitt-Phillips & Isabelle Follath","Funny Books","Ebenezer is 511 years old and stays young by feeding the beast in his attic. Now the beast wants a child – so Ebenezer adopts the horrible Bethany. Wickedly funny."],
+["Dexter Procter, the 10-Year-Old Doctor","Adam Kay & Henry Paker","Funny Books","From the author of Kay's Anatomy – a ten-year-old ends up running a hospital. Gross, funny and full of real medical facts."],
+["Medusa Gorgon's Bad Hair Day","Bethany Walker & Katie Abey","Funny Books","A comic, heavily illustrated take on Greek myth – Medusa's snakes have a mind of their own. Silly fun that sneaks in the myths."],
+["The Blockbusters!","Frank Cottrell Boyce & Steven Lenton","Funny Books","Big-hearted comedy adventure from the author of Millions and Cosmic, full of the daft humour and warmth he's known for."],
+
+["The Wolves of Willoughby Chase","Joan Aiken","Classic Books","In an alternative-history England where wolves roam the snowy countryside, cousins Bonnie and Sylvia are left with a cruel governess who has sinister plans. A gripping old-fashioned adventure."],
+["The Witches","Roald Dahl & Quentin Blake","Classic Books","Real witches look just like ordinary women – and they hate children. A boy and his cigar-smoking grandmother take on the Grand High Witch. Deliciously creepy and funny."],
+["When Hitler Stole Pink Rabbit","Judith Kerr","Classic Books","Nine-year-old Anna and her family flee Nazi Germany in 1933, leaving almost everything behind – including her beloved toy rabbit. Based on the author's own childhood as a refugee."],
+["Black Beauty","Michael Morpurgo & Tom de Freston","Classic Books","Anna Sewell's classic story of a horse's life in Victorian England, told by the horse himself. Morpurgo's retelling makes it very readable for this age."],
+
+["Bobby Bains Ain't Playing","Bali Rai & Daniel Duncan","Shorter Reads","A short, funny, heartfelt story about Bobby, who is done being pushed around and decides it's time to stand his ground."],
+["Advice from a 12-Year-Old Nobody","Helen Rutter & Julia Christians","Shorter Reads","From the author of The Boy Who Couldn't Make Things Disappear – a short, warm, funny story about fitting in and finding your confidence."],
+["Blitzers","Alastair Chisholm & Francesca Ficorilli","Shorter Reads","A fast-paced, tech-heavy short read built around gaming – ideal for kids who love video games and sci-fi."],
+["Dance of Resistance","Catherine Johnson & Katie Hickey","Shorter Reads","A short historical story about dance, courage and standing up for what's right, from an award-winning writer of historical fiction."],
+
+["Frankie's World","Aoife Dooley","Graphic Novels","Frankie always feels a bit different from everyone else, and goes looking for answers – and her dad. A funny, honest graphic novel from an autistic author about being yourself."],
+["Roller Girl","Victoria Jamieson","Graphic Novels","Astrid signs up for roller derby camp, expecting her best friend to come too – but she doesn't. A funny, bruising graphic novel about growing up and growing apart."],
+["Mighty Mega Pets: Freaky Food Fiasco!","Gary Northfield","Graphic Novels","Comic-strip chaos starring a gang of pets with oversized personalities. A great pick for reluctant readers."],
+
+["Riley Wright is Always Wrong","Mel Taylor-Bessent","Relatable Real-life Humour","A funny, highly illustrated story about Riley, whose plans have a habit of going wrong."],
+["The Adventures of Rap Kid","MC Grammar","Relatable Real-life Humour","A story about a kid finding his voice through rap, from the rapper-teacher known for his grammar raps."],
+["The Overthinkers' Club: Happy List","Nat Luurtsema","Relatable Real-life Humour","A warm, funny story about a worrier whose brain won't switch off – and about finding the people who get you."],
+["Evil Genius","Danny Wallace & Gemma Correll","Relatable Real-life Humour","Laugh-out-loud story from the author of Hamish and the Worldstoppers, starring a kid with some big (and possibly evil) plans."],
+["My Name is Sunshine Simpson","G. M. Linton & Fuuji Takashi","Relatable Real-life Humour","Sunshine's grandad tells her to go and find adventure, but bad luck keeps finding her – a frenemy, a disastrous home haircut, a stressful school showcase – while Grandad is getting older. Funny and tearjerking in equal measure."],
+
+["Arctic Star","Tom Palmer","Books about History","Teenager Frank serves on the Arctic convoys in WWII, braving freezing seas and U-boats to get supplies to Russia. Short, tense and based on real history."],
+["Secrets of a Sun King","Emma Carroll","Books about History","London, 1922: Lil receives a mysterious package from Egypt just as Tutankhamun's tomb is found, and it seems the curse is real. Mystery plus history."],
+["Anna at War","Helen Peters","Books about History","Anna escapes Nazi Germany on the Kindertransport to a farm in Kent, where she's treated with suspicion and stumbles on a dangerous secret. Tense and moving."],
+["Greek Boy","Tony Bradman","Books about History","A historical adventure set in the ancient Greek world – a great way to bring the Year 5 Ancient Greece topic to life."],
+["Under Fire","Sufiya Ahmed","Books about History","A gripping historical story of courage under pressure. See the BooksForTopics page for the full review."],
+["Nate Yu's Blast from the Past","Maisie Chan","Books about History","A funny time-slip adventure that drops Nate Yu into the past, from the author of Danny Chung Does Not Do Maths."],
+
+["Edison","Torben Kuhlmann","Picturebooks","A young mouse and his professor friend search for a lost treasure at the bottom of the sea. Gorgeous detailed illustrations – older picture books like this are great for this age."],
+["The Boy Who Became Queen","Christina Balit","Picturebooks","A richly illustrated picture book from Christina Balit, known for her jewel-like artwork of myths and history. See the BooksForTopics page for the full review."],
+["Varmints","Helen Ward","Picturebooks","A quiet green world is slowly swallowed by noise and concrete, until one small creature protects something precious. A haunting picture book with big ideas for older readers."],
+
+["When Poems Fall from the Sky","Zaro Weil & Junli Song","Poetry & Verse Novels","A beautiful illustrated collection of nature poems about animals, plants and the weather – lovely to read aloud."],
+["Wise Up! Wise Down!","John Agard, JonArno Lawson & Satoshi Kitamura","Poetry & Verse Novels","A playful poetry collection full of wordplay and wisdom from much-loved poets."],
+["Cloud Busting","Malorie Blackman","Poetry & Verse Novels","A short novel told in poems. Sam goes along with the bullying of odd-one-out Davey, until an unexpected friendship forces him to think about who he really is."],
+["Digging for Victory","Cathy Faulkner","Poetry & Verse Novels","A verse novel set on the home front in the Second World War, when families dug up gardens to grow their own food. Good alongside WWII topic work."],
+
+["Omnibird: An Avian Investigator's Handbook","Giselle Clarkson","Non-fiction Books","A funny, beautifully illustrated guide to becoming a bird detective – how birds fly, sing, build and behave, and how to spot them."],
+["The Greatest Stuff on Earth","Steve Tomecek & John Devolle","Non-fiction Books","A brightly illustrated fact book about the materials our world is made of. Great for dipping in and out of."],
+["Nature Heroes","Lily Dyu & Jackie Lay","Non-fiction Books","Inspiring true stories of people – including some familiar faces – who have fought to protect the natural world."],
+["What's That Building?","Rebecca Donnelly","Non-fiction Books","A tour of amazing buildings and how and why they were built. Good for curious kids who like how things work."],
+
+["Percy Jackson and the Lightning Thief","Rick Riordan","Myths & Magical Worlds","Percy discovers he's the son of a Greek god and gets blamed for stealing Zeus's lightning bolt. Hugely popular, funny and fast – perfect with the Greek topic."],
+["The House with Chicken Legs","Sophie Anderson, Elisa Paganelli & Melissa Castrillon","Myths & Magical Worlds","Marinka lives in a house that walks about on giant chicken legs, and she's meant to become a Guardian who guides the dead to the next world. A magical, moving story inspired by the Baba Yaga folk tales."],
+["Inkbound: Meticulous Jones and the Skull Tattoo","Philippa Leathley","Myths & Magical Worlds","A fantasy adventure full of magic and mystery – a treat for kids who love getting lost in other worlds."],
+["Rumaysa","Radiya Hafiza & Rhaida El Touny","Myths & Magical Worlds","A fresh retelling of fairy tales, starting with Rapunzel – except Rumaysa uses her hijab to escape the tower. Adventure, magic and humour."],
+["The Unchosen One","Amy Sparkes","Myths & Magical Worlds","From the author of The House at the Edge of Magic – a funny fantasy about a hero who very much wasn't supposed to be the hero."],
+["She Speaks","Honor Cargill-Martin & Camelia Pham","Myths & Magical Worlds","The women of the Greek myths – figures like Medusa, Athena and Persephone – tell their own side of the story. A powerful companion to the Ancient Greece topic."]
+];
+
+const KEY="y5reads-v2";
+let read=new Set();
+try{read=new Set(JSON.parse(localStorage.getItem(KEY)||"[]"))}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify([...read]))}catch(e){}};
+
+let filter="All";
+const list=document.getElementById("list"), shelf=document.getElementById("shelf");
+
+// chips
+const chips=document.getElementById("chips");
+["All","Not read yet",...Object.keys(TYPES)].forEach(t=>{
+  const b=document.createElement("button");b.className="chip";b.textContent=t;
+  b.setAttribute("aria-pressed",t==="All");
+  b.onclick=()=>{filter=t;[...chips.children].forEach(c=>c.setAttribute("aria-pressed",c===b));render()};
+  chips.appendChild(b);
+});
+
+// shelf
+B.forEach((b,i)=>{const s=document.createElement("div");s.className="spine";s.style.setProperty("--c",TYPES[b[2]]);s.style.height=(70+((i*37)%30))+"%";shelf.appendChild(s)});
+
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function render(){
+  const q=document.getElementById("q").value.trim().toLowerCase();
+  list.innerHTML="";let shown=0,last="";
+  B.forEach((b,i)=>{
+    const [title,author,type,blurb]=b;
+    if(filter==="Not read yet"&&read.has(i))return;
+    if(filter!=="All"&&filter!=="Not read yet"&&type!==filter)return;
+    if(q&&!(title+" "+author).toLowerCase().includes(q))return;
+    shown++;
+    if(type!==last&&(filter==="All"||filter==="Not read yet")){last=type;const h=document.createElement("li");h.className="head";h.textContent=type;list.appendChild(h);}
+    const li=document.createElement("li");
+    li.style.setProperty("--c",TYPES[type]);
+    if(read.has(i))li.classList.add("isread");
+    const search=encodeURIComponent(title+" "+author+" book");
+    li.innerHTML=`<details><summary>
+      <span class="tick" aria-hidden="true">${read.has(i)?"✓":""}</span>
+      <span class="t"><span class="title">${esc(title)}</span>${author?`<span class="by">${esc(author)}</span>`:""}</span>
+      <span class="tag">${type}</span></summary>
+      <div class="body"><p>${esc(blurb)}</p>
+      <div class="acts">
+        <button class="btn primary" data-i="${i}">${read.has(i)?"Mark as not read":"Mark as read"}</button>
+        <a class="btn" href="https://uk.bookshop.org/search?keywords=${search}" target="_blank" rel="noopener">Find the book</a>
+      </div></div></details>`;
+    list.appendChild(li);
+  });
+  document.getElementById("empty").hidden=shown>0;
+  [...shelf.children].forEach((s,i)=>s.classList.toggle("read",read.has(i)));
+  document.getElementById("count").innerHTML=`<b>${read.size}</b> of 50 read`;
+}
+list.addEventListener("click",e=>{
+  const b=e.target.closest("button[data-i]");if(!b)return;
+  const i=+b.dataset.i; read.has(i)?read.delete(i):read.add(i); save();
+  const open=b.closest("details"); render();
+  // keep the same card open after re-render
+  const again=list.querySelector(`button[data-i="${i}"]`); if(again)again.closest("details").open=true;
+});
+document.getElementById("q").addEventListener("input",render);
+render();
+</script>
+</body>
+</html>
