@@ -269,6 +269,8 @@
         { name: '11+ Creative Writing Guide', url: 'https://www.atomlearning.com/blog/11-plus-creative-writing', desc: 'What\u2019s tested in creative writing', section: 'Guides' },
         { name: '11+ Verbal Reasoning Guide', url: 'https://www.atomlearning.com/blog/11-plus-verbal-reasoning-exam-preparation-guide', desc: 'What\u2019s tested in verbal reasoning', section: 'Guides' },
         { name: '11+ Non-Verbal Reasoning Guide', url: 'https://www.atomlearning.com/blog/11-plus-non-verbal-reasoning-top-tips-for-success', desc: 'Top tips for non-verbal reasoning', section: 'Guides' },
+        { name: '11+ Learning Plan & Topic List', url: 'https://resources.atomlearning.co.uk/11-plus-toolkit', desc: 'Free personalised plan & topic list — covers Redbridge 11+', section: 'Guides' },
+        { name: '11+ Familiarisation Hub', url: 'https://www.atomlearning.com/free-11-plus-familiarisation', desc: 'All of Atom\u2019s free papers, vocab builder & more in one place', section: 'Guides' },
         { name: 'English Practice Paper (PDF)', url: 'https://resources.atomlearning.co.uk/hubfs/Refreshed%2011+%20course%20practice%20papers%20-%20rebranded/11+%20English%20paper-1.pdf', desc: 'Free 11+ English practice paper', section: 'Practice Papers' },
         { name: 'Creative Writing Practice Paper (PDF)', url: 'https://resources.atomlearning.co.uk/hubfs/Refreshed%2011+%20course%20practice%20papers%20-%20rebranded/11+%20Creative%20Writing.pdf', desc: 'Free 11+ creative writing practice paper', section: 'Practice Papers' },
         { name: 'Verbal Reasoning Practice Paper (PDF)', url: 'https://resources.atomlearning.co.uk/hubfs/Refreshed%2011+%20course%20practice%20papers%20-%20rebranded/11+%20Verbal%20Reasoning%20paper.pdf', desc: 'Free 11+ verbal reasoning practice paper', section: 'Practice Papers' },
@@ -336,6 +338,19 @@
   function renderHome() {
     const grid = document.getElementById('homeGrid');
     grid.innerHTML = '';
+
+    const supportTile = document.createElement('a');
+    supportTile.className = 'tile';
+    supportTile.href = 'https://edukeyapp.com/parent/index';
+    supportTile.target = '_blank';
+    supportTile.rel = 'noopener';
+    supportTile.style.background = '#0f766e';
+    supportTile.innerHTML = `
+      <span class="tile-name">🧩 My Support Plan</span>
+      <span class="tile-sub">School's dyslexia plan (Edukey)</span>
+    `;
+    grid.appendChild(supportTile);
+
     SUBJECTS.forEach(s => {
       const visitedCount = s.sites.filter(site => isVisited(visitKey(s.id, site.url))).length;
       const tile = document.createElement('button');
